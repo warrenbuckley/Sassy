@@ -1,0 +1,10 @@
+﻿<createUI>
+  <nodeType alias="initsassyTree">
+    <header>Sass editor</header>
+    <usercontrol>/create/simple.ascx</usercontrol>
+    <tasks>
+      <create assembly="CWS.Sassy" type="SassFileTasks" />
+      <delete assembly="CWS.Sassy" type="SassFileTasks" />
+    </tasks>
+  </nodeType>
+</createUI>

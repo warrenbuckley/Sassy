@@ -1,0 +1,9 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/umbraco/masterpages/default.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="ContentPlaceHolderDefault" runat="server">
+<html>
+	<body>
+		<div class="circle"></div>
+	</body>
+</html>
+</asp:Content>
