@@ -1,1 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<Action runat="install"
+               alias="CWS.Sassy.AddTree">
+  <nodeType alias="initsassyTree">
+    <header>Sass editor</header>
+    <usercontrol>/create/simple.ascx</usercontrol>
+    <tasks>
+      <create assembly="CWS.Sassy" type="SassFileTasks" />
+      <delete assembly="CWS.Sassy" type="SassFileTasks" />
+    </tasks>
+  </nodeType>
+</Action>
+<Action runat="install" 
+        alias="CWS.Sassy.AddXmlFragment" 
+        file="~/web.config" 
+        xpath="//configSections" 
+        position="end">
+  <sectionGroup name="bundleTransformer">
+    <section name="core" type="BundleTransformer.Core.Configuration.CoreSettings, BundleTransformer.Core" />
+  </sectionGroup>
+</Action>
+<Action runat="install"
+        alias="CWS.Sassy.AddXmlFragment"
+        file="~/web.config"
+        xpath="//configuration"
+        position="end">
+  <bundleTransformer xmlns="http://tempuri.org/BundleTransformer.Configuration.xsd">
+    <core>
+      <css>
+        <minifiers>
+          <add name="NullMinifier" type="BundleTransformer.Core.Minifiers.NullMinifier, BundleTransformer.Core" />
+        </minifiers>
+        <translators>
+          <add name="NullTranslator" type="BundleTransformer.Core.Translators.NullTranslator, BundleTransformer.Core" enabled="false" />
+        </translators>
+      </css>
+      <js>
+        <minifiers>
+          <add name="NullMinifier" type="BundleTransformer.Core.Minifiers.NullMinifier, BundleTransformer.Core" />
+        </minifiers>
+        <translators>
+          <add name="NullTranslator" type="BundleTransformer.Core.Translators.NullTranslator, BundleTransformer.Core" enabled="false" />
+        </translators>
+      </js>
+    </core>
+  </bundleTransformer>
+</Action>

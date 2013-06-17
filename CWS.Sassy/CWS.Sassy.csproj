@@ -242,11 +242,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Actions.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="developer\Sassy\SassyFileEditor.aspx" />
     <Content Include="umbraco_client\CodeMirror\Js\Mode\sass\sass.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddXMLPackageAction.cs" />
     <Compile Include="developer\Sassy\SassyFileEditor.aspx.cs">
       <DependentUpon>SassyFileEditor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -254,6 +258,7 @@
     <Compile Include="developer\Sassy\SassyFileEditor.aspx.designer.cs">
       <DependentUpon>SassyFileEditor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AddTreePackageAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SassFileTasks.cs" />
     <Compile Include="SassyTree.cs" />
@@ -298,7 +303,8 @@
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(TargetPath)" "$(SolutionDir)\CWS.Sassy.Web\bin"
+    <PostBuildEvent>xcopy /y "$(SolutionDir)\bin\Cws.Sassy.pdb" "$(SolutionDir)\CWS.Sassy.Web\bin"
+xcopy /y "$(TargetPath)" "$(SolutionDir)\CWS.Sassy.Web\bin"
 xcopy /y "$(ProjectDir)developer\sassy\sassyfileeditor.aspx" "$(SolutionDir)\CWS.Sassy.Web\umbraco\developer\sassy\"
 xcopy /y "$(ProjectDir)umbraco_client\CodeMirror\Js\Mode\sass\sass.js" "$(SolutionDir)\CWS.Sassy.Web\umbraco_client\CodeMirror\Js\Mode\sass\"</PostBuildEvent>
   </PropertyGroup>

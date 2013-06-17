@@ -17,7 +17,7 @@ namespace CWS.Sassy
     /// <remarks>
     /// This package action is part of the PackageActionsContrib Project
     /// </remarks>
-    public class AddTreeNodeType : IPackageAction
+    public class AddTreePackageAction : IPackageAction
     {
         //Set the UI.xml full path
         const string FULL_PATH = "/umbraco/config/create/UI.xml";
@@ -31,7 +31,7 @@ namespace CWS.Sassy
         /// <returns>The Alias in string format</returns>
         public string Alias()
         {
-            return "CWS.Sassy.AddTreeNodeType";
+            return "CWS.Sassy.AddTree";
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace CWS.Sassy
         public XmlNode SampleXml()
         {
             return spa.helper.parseStringToXmlNode(
-                "<Action runat=\"install\" alias=\"CWS.Sassy.AddTreeNodeType\">"
+                "<Action runat=\"install\" alias=\"CWS.Sassy.AddTree\">"
                     + "<nodeType alias=\"initrss\">"
                         + "<header>RSS Feed</header>"
                         + "<usercontrol>/create/simple.ascx</usercontrol>"

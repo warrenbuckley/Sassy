@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BundleTransformer.Core.Assets;
+using BundleTransformer.Core.Translators;
 using BundleTransformer.SassAndScss.HttpHandlers;
 using BundleTransformer.SassAndScss.Translators;
 using ClientDependency.Core;
@@ -108,8 +109,12 @@ namespace CWS.Sassy.developer.Sassy
 
                 return true;
             }
-            catch
+            catch (AssetTranslationException ex)
             {
+                Feedback.type = Feedback.feedbacktype.error;
+                Feedback.Text = ex.Message;
+                Feedback.Visible = true;
+
                 return false;
             }
         }
