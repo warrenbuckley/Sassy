@@ -23,15 +23,16 @@ namespace CWS.Sassy
             //Set result default to false
             bool result = false;
 
+            var file = xmlData.Attributes.GetNamedItem("file").Value;
 
             //The config file we want to modify
-            string configFileName = VirtualPathUtility.ToAbsolute(XmlHelper.GetAttributesFromElement("Action").SingleOrDefault(x => x.Key == "file").Value);
+            string configFileName = VirtualPathUtility.ToAbsolute(file);
 
             //Xpath expression to determine the rootnode
-            string xPath = XmlHelper.GetAttributesFromElement("Action").SingleOrDefault(x => x.Key == "xpath").Value;
+            string xPath = xmlData.Attributes.GetNamedItem("xpath").Value;
 
             //Holds the position where we want to insert the xml Fragment
-            string position = XmlHelper.GetAttributesFromElement("Action").SingleOrDefault(x => x.Key == "position").Value;
+            string position = xmlData.Attributes.GetNamedItem("position").Value;
 
             //Open the config file
             XmlDocument configDocument = umbraco.xmlHelper.OpenAsXmlDocument(configFileName);
@@ -42,21 +43,31 @@ namespace CWS.Sassy
             //Select rootnode using the xpath
             XmlNode rootNode = configDocument.SelectSingleNode(xPath);
 
-            if (position.Equals("beginning", StringComparison.CurrentCultureIgnoreCase))
+            //Check if XML already exists
+            var checkExists = configDocument.SelectSingleNode(".//" + xmlFragment.SelectSingleNode(".").Name.ToString());
+
+            if (checkExists == null)
             {
-                //Add xml fragment to the beginning of the selected rootnode
-                rootNode.PrependChild(configDocument.ImportNode(xmlFragment, true));
+                if (position.Equals("beginning", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    //Add xml fragment to the beginning of the selected rootnode
+                    rootNode.PrependChild(configDocument.ImportNode(xmlFragment, true));
+                }
+                else
+                {
+                    //add xml fragment to the end of the selected rootnode
+                    rootNode.AppendChild(configDocument.ImportNode(xmlFragment, true));
+                }
+
+                //Save the modified document
+                configDocument.Save(HttpContext.Current.Server.MapPath(configFileName));
+
+                result = true;
             }
             else
             {
-                //add xml fragment to the end of the selected rootnode
-                rootNode.AppendChild(configDocument.ImportNode(xmlFragment, true));
+                result = false;
             }
-
-            //Save the modified document
-            configDocument.Save(HttpContext.Current.Server.MapPath(configFileName));
-
-            result = true;
 
             return result;
         }
